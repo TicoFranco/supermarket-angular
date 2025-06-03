@@ -1,0 +1,32 @@
+<div id="container__listItems">
+    <h1 id="title">Items</h1>
+    <ul id="items_type">
+        <li (click)="ativarCarnes()">carne</li>
+        <li (click)="ativarMassas()">massas</li>
+        <li (click)="ativarDoces()">doces</li>
+        <li (click)="ativarBebidas()">bebidas</li>
+    </ul>
+    <div id="items">
+        <div id="items_carne" *ngIf="carnes">
+            <app-item [id]=5></app-item>
+            <app-item [id]=6></app-item>
+            <app-item [id]=7></app-item>
+        </div>
+        <div id="items_massas" *ngIf="massas">
+            <app-item [id]=8></app-item>
+            <app-item [id]=9></app-item>
+            <app-item [id]=10></app-item>
+        </div>
+        <div id="items_doces" *ngIf="doces">
+            <app-item [id]=11></app-item>
+            <app-item [id]=12></app-item>
+        </div>
+        <div id="items_bebidas" *ngIf="bebidas">
+            <app-item [id]=0></app-item>
+            <app-item [id]=1></app-item>
+            <app-item [id]=2></app-item>
+            <app-item [id]=3></app-item>
+            <app-item [id]=4></app-item>
+        </div>
+    </div>
+</div>
