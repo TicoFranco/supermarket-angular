@@ -1,45 +1,31 @@
-import { Component } from '@angular/core';
-import {ItemComponent} from './item/item.component';
+import { Component, EventEmitter, Output} from '@angular/core';
 import { NgIf } from '@angular/common';
+import { ItemVerticalComponent } from './item-vertical/item-vertical.component';
 
 @Component({
   selector: 'app-list-items',
-  imports: [ItemComponent,NgIf],
+  imports: [NgIf,ItemVerticalComponent],
   templateUrl: './list-items.component.html',
   styleUrl: './list-items.component.css',
   standalone:true
 })
 export class ListItemsComponent {
-    carnes:boolean=true
-    massas:boolean=false
-    bebidas:boolean=false
-    doces:boolean=false
+  abaAtiva:string = 'carnes';
+  itemId:number | undefined= undefined;
+  @Output() message=new EventEmitter<number>();
 
-    ativarCarnes(){
-      this.carnes=true
-      this.massas=false
-      this.bebidas=false
-      this.doces=false
-    }
+  ativarAba(aba: string) {
+   this.abaAtiva = aba;
+  }
 
-    ativarMassas(){
-      this.carnes=false
-      this.massas=true
-      this.bebidas=false
-      this.doces=false
-    }
+  goToCart(){
+    this.message.emit(this.itemId);
+  }
 
-    ativarBebidas(){
-      this.carnes=false
-      this.massas=false
-      this.bebidas=true
-      this.doces=false
-    }
+  //itemVertical -> list-items -> home-page -> menu-bar
+  getMessage(n:number){
+    this.itemId=n;
+    this.goToCart();
+  }
 
-    ativarDoces(){
-      this.carnes=false
-      this.massas=false
-      this.bebidas=false
-      this.doces=true
-    }
 }

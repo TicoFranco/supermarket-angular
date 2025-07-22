@@ -1,0 +1,19 @@
+<div class="card mb-3">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="{{imagem}}" class="img-fluid" alt="{{nome}}">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{nome}}</h5>
+        <span>
+            Quantidade:
+            <button type="button" class="btn btn-danger" (click)="retirar_item()">-</button>
+            {{count}}
+            <button type="button" class="btn btn-success" (click)="adicionar_item()">+</button>
+        </span>
+        <p class="card-text">Total:R${{total_item}}</p>
+      </div>
+    </div>
+  </div>
+</div>

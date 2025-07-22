@@ -1,32 +1,40 @@
 <div id="container__listItems">
     <h1 id="title">Items</h1>
-    <ul id="items_type">
-        <li (click)="ativarCarnes()">carne</li>
-        <li (click)="ativarMassas()">massas</li>
-        <li (click)="ativarDoces()">doces</li>
-        <li (click)="ativarBebidas()">bebidas</li>
+    <ul class="nav nav-tabs nav-fill">
+      <li class="nav-item">
+        <button class="nav-link" [class.active]="abaAtiva === 'carnes'" (click)="ativarAba('carnes')">Carnes</button>
+      </li>
+      <li class="nav-item">
+         <button class="nav-link" [class.active]="abaAtiva === 'massas'" (click)="ativarAba('massas')">Massas</button>
+      </li>
+      <li class="nav-item">
+         <button class="nav-link" [class.active]="abaAtiva === 'doces'" (click)="ativarAba('doces')">Doces</button>
+      </li>
+      <li class="nav-item">
+         <button class="nav-link" [class.active]="abaAtiva === 'bebidas'" (click)="ativarAba('bebidas')">Bebidas</button>
+      </li>
     </ul>
-    <div id="items">
-        <div id="items_carne" *ngIf="carnes">
-            <app-item [id]=5></app-item>
-            <app-item [id]=6></app-item>
-            <app-item [id]=7></app-item>
-        </div>
-        <div id="items_massas" *ngIf="massas">
-            <app-item [id]=8></app-item>
-            <app-item [id]=9></app-item>
-            <app-item [id]=10></app-item>
-        </div>
-        <div id="items_doces" *ngIf="doces">
-            <app-item [id]=11></app-item>
-            <app-item [id]=12></app-item>
-        </div>
-        <div id="items_bebidas" *ngIf="bebidas">
-            <app-item [id]=0></app-item>
-            <app-item [id]=1></app-item>
-            <app-item [id]=2></app-item>
-            <app-item [id]=3></app-item>
-            <app-item [id]=4></app-item>
-        </div>
+    <div *ngIf="abaAtiva === 'carnes'">
+      <app-item-vertical (message)="getMessage($event)" [id]="5"></app-item-vertical>
+      <app-item-vertical (message)="getMessage($event)" [id]="6"></app-item-vertical>
+      <app-item-vertical (message)="getMessage($event)" [id]="7"></app-item-vertical>
+    </div>
+
+    <div *ngIf="abaAtiva === 'massas'">
+      <app-item-vertical (message)="getMessage($event)" [id]="8"></app-item-vertical>
+      <app-item-vertical (message)="getMessage($event)" [id]="9"></app-item-vertical>
+    </div>
+
+    <div *ngIf="abaAtiva === 'doces'">
+      <app-item-vertical (message)="getMessage($event)" [id]="11"></app-item-vertical>
+      <app-item-vertical (message)="getMessage($event)" [id]="12"></app-item-vertical>
+    </div>
+
+    <div *ngIf="abaAtiva === 'bebidas'">
+      <app-item-vertical (message)="getMessage($event)" [id]="0"></app-item-vertical>
+      <app-item-vertical (message)="getMessage($event)" [id]="1"></app-item-vertical>
+      <app-item-vertical (message)="getMessage($event)" [id]="2"></app-item-vertical>
+      <app-item-vertical (message)="getMessage($event)" [id]="3"></app-item-vertical>
+      <app-item-vertical (message)="getMessage($event)" [id]="4"></app-item-vertical>
     </div>
 </div>

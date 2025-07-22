@@ -12,5 +12,11 @@ import { FooterComponentComponent } from './footer-component/footer-component.co
   standalone:true
 })
 export class HomePageComponent {
+  itemId:number | undefined = undefined;
 
+  //itemVertical -> list-items -> home-page -> menu-bar
+  getMessage(n:number){
+    this.itemId=n;
+    console.log(this.itemId);
+  }
 }

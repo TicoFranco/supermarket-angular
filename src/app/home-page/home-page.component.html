@@ -1,4 +1,4 @@
-<app-menu-bar></app-menu-bar>
+<app-menu-bar [itemId]="itemId"></app-menu-bar>
 <app-welcome-card></app-welcome-card>
-<app-list-items></app-list-items>
+<app-list-items (message)="getMessage($event)"></app-list-items>
 <app-footer-component></app-footer-component>
