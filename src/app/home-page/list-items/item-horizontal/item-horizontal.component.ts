@@ -1,4 +1,4 @@
-import { Component,OnInit,Input,Output, EventEmitter } from '@angular/core';
+import { Component,OnInit,Input,Output, EventEmitter} from '@angular/core';
 import { list_items } from '../../../data/data_list';
 
 @Component({
@@ -15,6 +15,7 @@ export class ItemHorizontalComponent {
   preco:number=0;
   imagem:string="";
   @Output() message=new EventEmitter<number>();
+  @Output() destroy=new EventEmitter<void>();
 
   ngOnInit(): void{
       const result=list_items.filter(item => item.id==this.id)[0];
@@ -23,7 +24,7 @@ export class ItemHorizontalComponent {
       this.preco=Number(result.preco);
       this.count=1;
       this.total_item=this.preco;
-      this.message.emit(this.total_item);
+      this.message.emit(this.preco);
   }
 
   retirar_item(){
@@ -38,6 +39,10 @@ export class ItemHorizontalComponent {
     this.count++;
     this.total_item=this.preco*this.count;
     this.message.emit(this.preco);
+  }
+
+  deleteItem(){
+    this.destroy.emit();
   }
 
 }

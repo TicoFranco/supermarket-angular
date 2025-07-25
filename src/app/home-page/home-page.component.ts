@@ -17,6 +17,5 @@ export class HomePageComponent {
   //itemVertical -> list-items -> home-page -> menu-bar
   getMessage(n:number){
     this.itemId=n;
-    console.log(this.itemId);
   }
 }

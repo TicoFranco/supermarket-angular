@@ -3,78 +3,91 @@ export const list_items=[
         "id":0,
         "nome":"Refrigerante",
         "preco":"7.50",
+        "tipo":"bebida",
         "imagem":"/bebidas/refrigerante.png"
     },
     {
         "id":1,
         "nome":"Agua",
         "preco":"5.00",
+        "tipo":"bebida",
         "imagem":"/bebidas/agua.png"
     },
     {
         "id":2,
         "nome":"Suco",
         "preco":"3.50",
+        "tipo":"bebida",
         "imagem":"/bebidas/suco.png"
     },
     {
         "id":3,
         "nome":"Leite",
         "preco":"4.00",
+        "tipo":"bebida",
         "imagem":"/bebidas/leite.png"
     },
     {
         "id":4,
         "nome":"Vinho",
         "preco":"30.00",
+        "tipo":"bebida",
         "imagem":"/bebidas/vinho.png"
     },
     {
         "id":5,
         "nome":"Carne Bovina",
         "preco":"40.00",
+        "tipo":"carne",
         "imagem":"/carnes/carne_bovina.png"
     },
     {
         "id":6,
         "nome":"Frango ",
         "preco":"28.00",
+        "tipo":"carne",
         "imagem":"/carnes/frango.png"
     },
     {
         "id":7,
         "nome":"Peixe",
         "preco":"35.00",
+        "tipo":"carne",
         "imagem":"/carnes/peixe.png"
     },
     {
         "id":8,
         "nome":"Macarrão",
         "preco":"20.00",
+        "tipo":"massa",
         "imagem":"/massas/macarrao.png"
     },
     {
         "id":9,
         "nome":"Lasanha",
         "preco":"32.00",
+        "tipo":"massa",
         "imagem":"/massas/lasanha.png"
     },
     {
         "id":10,
         "nome":"Pizza",
         "preco":"50.00",
+        "tipo":"massa",
         "imagem":"/massas/pizza.png"
     },
     {
         "id":11,
         "nome":"Barra de Chocolate",
         "preco":"15.00",
+        "tipo":"doce",
         "imagem":"/doces/chocolate.png"
     },
     {
         "id":12,
         "nome":"Bolo",
         "preco":"60.00",
+        "tipo":"doce",
         "imagem":"/doces/bolo.png"
     }
 ]
