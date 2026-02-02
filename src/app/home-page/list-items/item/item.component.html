@@ -1,8 +1,84 @@
-<div class="card text-center mb-3" style="width: 18rem; margin: 3% 3%;">
-  <img src="{{imagem}}" class="card-img-top" alt="{{nome}}">
-  <div class="card-body">
-    <h5 class="card-title">{{nome}}</h5>
-    <p class="card-text" style="color: black;">R${{preco}}</p>
-    <a href="#" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Add to cart <i class="bi bi-cart"></i></a>
-  </div>
-</div>
+@if (mod == 'vertical'){
+    @if (item){
+        <ng-container>
+            <div class="card text-center mb-3" style="width: 18rem; margin: 3% 3%;">
+                <img src="{{item.url}}" class="card-img-top" alt="{{item.name}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{item.name}}</h5>
+                    <p class="card-text" style="color: black;">R${{item.price}}</p>
+                    <a href="#" class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" (click)="goToCart()">Add to cart <i class="bi bi-cart"></i></a>
+                </div>
+            </div>
+        </ng-container>
+    }@else {
+        <ng-template>
+            <div class="card text-center mb-3" style="width: 18rem; margin: 3% 3%;" aria-hidden="true">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title placeholder-glow">
+                       <span class="placeholder col-6"></span>
+                    </h5>
+                    <p class="card-text placeholder-glow">
+                        <span class="placeholder col-7"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-4"></span>
+                        <span class="placeholder col-6"></span>
+                        <span class="placeholder col-8"></span>
+                    </p>
+                    <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+                </div>
+            </div>
+        </ng-template>
+    }
+}@else if(mod == 'horizontal'){
+    @if(item){
+        <ng-container>
+            <div class="card mb-3 text-bg-light">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="{{item.url}}" class="img-fluid" alt="{{item.name}}" style="height: 100%;">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{item.name}}</h5>
+                             <span>
+                               Quantidade:
+                               <button type="button" class="btn btn-danger" (click)="retirar_item()">-</button>
+                               {{count}}
+                               <button type="button" class="btn btn-success" (click)="adicionar_item()">+</button>
+                             </span>
+                             <p><a href="#" class="link-danger" (click)="deleteItem()">excluir</a></p>
+                             <p class="card-text">Total:R${{total_item}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    }@else {
+        <ng-template>
+            <div class="card mb-3 text-bg-light" aria-hidden="true">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img src="..." class="card-img-top" alt="...">
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title placeholder-glow">
+                            <span class="placeholder col-6"></span>
+                        </h5>
+                        <p class="card-text placeholder-glow">
+                            <span class="placeholder col-7"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-6"></span>
+                            <span class="placeholder col-8"></span>
+                        </p>
+                        <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+                    </div>
+                </div>
+            </div>
+
+        </ng-template>
+    }
+}

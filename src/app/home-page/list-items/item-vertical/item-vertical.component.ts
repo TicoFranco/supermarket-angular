@@ -1,32 +1,24 @@
-import { Component,Input,OnInit,Output,EventEmitter } from '@angular/core';
-import { list_items } from '../../../data/data_list';
+import { Component,Input,Output,EventEmitter } from '@angular/core';
+import { ItemInterface } from '../../../../../service/ItemInterface';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-item-vertical',
-  imports: [],
+  imports: [NgIf],
   templateUrl: './item-vertical.component.html',
   styleUrl: './item-vertical.component.css',
   standalone:true
 })
 export class ItemVerticalComponent {
-  @Input() id:number | undefined = undefined;
-  preco:string='';
-  nome:string='';
-  imagem:string='';
-  @Output() message=new EventEmitter<number>();
+
+  @Output() message=new EventEmitter<ItemInterface>();
+  @Input() item!: ItemInterface;
 
   constructor(){}
 
-  ngOnInit(): void{
-    const result=list_items.filter(item => item.id==this.id)[0];
-    this.preco=result.preco;
-    this.nome=result.nome;
-    this.imagem=result.imagem;
-  }
-
   //itemVertical -> list-items -> home-page -> menu-bar
   goToCart(){
-    this.message.emit(this.id);
+    this.message.emit(this.item);
   }
 
 }

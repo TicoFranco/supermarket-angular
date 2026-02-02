@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import {MenuBarComponent} from './menu-bar/menu-bar.component'
 import {WelcomeCardComponent} from './welcome-card/welcome-card.component';
 import {ListItemsComponent} from './list-items/list-items.component';
 import { FooterComponentComponent } from './footer-component/footer-component.component';
+import { ItemInterface } from '../../../service/ItemInterface';
 
 @Component({
   selector: 'app-home-page',
@@ -12,10 +13,10 @@ import { FooterComponentComponent } from './footer-component/footer-component.co
   standalone:true
 })
 export class HomePageComponent {
-  itemId:number | undefined = undefined;
+  item:ItemInterface | undefined = undefined;
 
   //itemVertical -> list-items -> home-page -> menu-bar
-  getMessage(n:number){
-    this.itemId=n;
+  getMessage(item:ItemInterface){
+    this.item=item;
   }
 }

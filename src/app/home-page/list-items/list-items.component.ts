@@ -1,46 +1,54 @@
-import { Component, EventEmitter, Output,OnInit} from '@angular/core';
+import { Component, EventEmitter, Output} from '@angular/core';
 import { NgIf,NgStyle,NgFor } from '@angular/common';
-import { ItemVerticalComponent } from './item-vertical/item-vertical.component';
-import { list_items } from '../../data/data_list';
+import { ItemServiceService } from '../../../../service/item-service.service';
+import { ItemInterface } from '../../../../service/ItemInterface';
+import { ItemComponent } from './item/item.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-list-items',
-  imports: [NgIf,ItemVerticalComponent,NgStyle,NgFor],
+  imports: [NgIf,NgStyle,ItemComponent,CommonModule,NgFor],
   templateUrl: './list-items.component.html',
   styleUrl: './list-items.component.css',
   standalone:true
 })
-export class ListItemsComponent {
+export class ListItemsComponent{
   abaAtiva:string = 'carnes';
-  itemId:number | undefined= undefined;
-  @Output() message=new EventEmitter<number>();
-  idBebidas:number[]=[];
-  idCarnes:number[]=[];
-  idMassas:number[]=[];
-  idDoces:number[]=[];
+  item:ItemInterface | undefined = undefined;
+  Carnes:ItemInterface[] = [];
+  Massas:ItemInterface[] = [];
+  Doces:ItemInterface[] = [];
+  Bebidas:ItemInterface[] = [];
+  @Output() message=new EventEmitter<ItemInterface>();
+  service:ItemServiceService;
+ 
+  constructor(s:ItemServiceService){
+    this.service=s;
+  }
 
-   ngOnInit(): void{
-        let aux=list_items.filter(item => item.tipo === "bebida");
-        this.idBebidas=aux.map(item => item.id);
-        aux=list_items.filter(item => item.tipo === "carne");
-        this.idCarnes=aux.map(item => item.id);
-        aux=list_items.filter(item => item.tipo === "massa");
-        this.idMassas=aux.map(item => item.id);
-        aux=list_items.filter(item => item.tipo === "doce");
-        this.idDoces=aux.map(item => item.id);
-    }
+  ngOnInit(): void {
+    this.service.listAll().subscribe({
+          next:(list) => {
+            this.Carnes = list.filter(item => item.type == 'CARNE');
+            this.Massas = list.filter(item => item.type == 'MASSA');
+            this.Doces = list.filter(item => item.type == 'DOCE');
+            this.Bebidas = list.filter(item => item.type == 'BEBIDA');
+          }
+          }
+        )
+  }
 
   ativarAba(aba: string) {
    this.abaAtiva = aba;
   }
 
   goToCart(){
-    this.message.emit(this.itemId);
+    this.message.emit(this.item);
   }
 
-  //itemVertical -> list-items -> home-page -> menu-bar
-  getMessage(n:number){
-    this.itemId=n;
+  //item -> list-items -> home-page -> menu-bar
+  getMessage(item:ItemInterface){
+    this.item=item;
     this.goToCart();
   }
 

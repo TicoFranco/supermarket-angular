@@ -1,0 +1,19 @@
+<div class="accordion mx-3 my-3" id="{{purchaseId}}">
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="collapseDB" aria-expanded="false" [attr.aria-controls]="collapseId">
+               purchase day - {{purchase.date}}
+            </button>
+        </h2>
+        <div id="{{collapseId}}" class="accordion-collapse collapse" [attr.data-bs-parent]="purchaseDB">
+            <div class="accordion-body">
+                @for (item of purchase.items;track item.name){
+                    <img src="{{item.url}}" class="rounded-3" alt="{{item.name}}" style="width: 30px; height: 30px;">
+                    <h2 class="text-dark">{{item.name}}</h2>
+                    <h2 class="text-dark">Quantity:{{item.quantity}}</h2>
+                    <h2 class="text-dark">Value:{{item.value}}</h2>
+                }
+            </div>
+        </div>
+    </div>
+</div>

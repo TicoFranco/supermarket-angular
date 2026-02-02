@@ -1,26 +1,60 @@
-import { Component,Input,OnInit } from '@angular/core';
-import { list_items } from '../../../data/data_list';
+import { Component, EventEmitter, Input, Output} from '@angular/core';
+import { ItemInterface } from '../../../../../service/ItemInterface';
+import { purchaseItem } from '../../../../../service/PurchaseInterface';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-item',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './item.component.html',
-  styleUrl: './item.component.css',
-  standalone:true
+  styleUrl: './item.component.css'
 })
 export class ItemComponent {
-  @Input() id:number=0;
-  preco:string='';
-  nome:string='';
-  imagem:string='';
 
-  constructor(){}
+   count:number=0;
+   total_item:number=0;
+   @Output() outputHorizontal=new EventEmitter<number>();
+   @Output() outputVertical=new EventEmitter<ItemInterface>();
+   @Output() destroy=new EventEmitter<void>();
+   @Input() item!: ItemInterface;
+   @Input() mod!:string;
 
-  ngOnInit(): void{
-    const result=list_items.filter(item => item.id==this.id)[0];
-    this.preco=result.preco;
-    this.nome=result.nome;
-    this.imagem=result.imagem;
+   ngOnInit(): void{
+    if(this.mod == 'horizontal'){
+      this.count=1;
+      this.total_item=this.item.price;
+      this.outputHorizontal.emit(this.item.price);
+    }
   }
 
+  retirar_item(){
+    if(this.count > 0){
+      this.count--;
+      this.total_item=this.item.price*this.count;
+      this.outputHorizontal.emit(this.item.price*(-1));
+    }
+  }
+
+  adicionar_item(){
+    this.count++;
+    this.total_item=this.item.price*this.count;
+    this.outputHorizontal.emit(this.item.price);
+  }
+
+  deleteItem(){
+    this.destroy.emit();
+  }
+
+  getInfoBuy(){
+      const info:purchaseItem = {
+        id:this.item.id,
+        count:this.count
+      }
+      return info;
+  }
+
+  //item -> list-items -> home-page -> menu-bar
+  goToCart(){
+    this.outputVertical.emit(this.item);
+  }
 }

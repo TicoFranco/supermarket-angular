@@ -1,48 +1,61 @@
 import { Component,OnInit,Input,Output, EventEmitter} from '@angular/core';
-import { list_items } from '../../../data/data_list';
+import { ItemInterface } from '../../../../../service/ItemInterface';
+import { NgIf } from '@angular/common';
+import { purchaseItem } from '../../../../../service/PurchaseInterface';
+import { ItemManipulationInterface } from '../../../../../service/ItemManipulationInterface';
 
 @Component({
   selector: 'app-item-horizontal',
-  imports: [],
+  imports: [NgIf],
   templateUrl: './item-horizontal.component.html',
   styleUrl: './item-horizontal.component.css'
 })
 export class ItemHorizontalComponent {
-  @Input() id:number=0;
-  nome:string="";
   count:number=0;
   total_item:number=0;
-  preco:number=0;
-  imagem:string="";
-  @Output() message=new EventEmitter<number>();
+  @Output() message=new EventEmitter<ItemManipulationInterface>();
   @Output() destroy=new EventEmitter<void>();
+  @Input() item!: ItemInterface;
 
   ngOnInit(): void{
-      const result=list_items.filter(item => item.id==this.id)[0];
-      this.nome=result.nome;
-      this.imagem=result.imagem;
-      this.preco=Number(result.preco);
       this.count=1;
-      this.total_item=this.preco;
-      this.message.emit(this.preco);
+      this.total_item=this.item.price;
+      this.message.emit({
+        price:this.item.price,
+        count:this.count
+      });
   }
 
   retirar_item(){
     if(this.count > 0){
       this.count--;
-      this.total_item=this.preco*this.count;
-      this.message.emit(this.preco*(-1));
+      this.total_item=this.item.price*this.count;
+      this.message.emit({
+        price:this.item.price*(-1),
+        count:-1
+      });
     }
   }
 
   adicionar_item(){
     this.count++;
-    this.total_item=this.preco*this.count;
-    this.message.emit(this.preco);
+    this.total_item=this.item.price*this.count;
+    this.message.emit({
+      price:this.item.price,
+      count:1
+    });
   }
 
   deleteItem(){
     this.destroy.emit();
+  }
+
+  getInfoBuy(){
+    const info:purchaseItem = {
+      id:this.item.id,
+      count:this.count
+    }
+    return info;
   }
 
 }

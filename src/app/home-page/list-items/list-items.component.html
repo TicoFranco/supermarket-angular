@@ -14,37 +14,29 @@
          <button class="nav-link" [class.active]="abaAtiva === 'bebidas'" (click)="ativarAba('bebidas')" [ngStyle]="{ color: abaAtiva === 'bebidas' ? 'black' : 'white' }">Bebidas</button>
       </li>
     </ul>
+
     <div class="container" *ngIf="abaAtiva === 'carnes'">
       <div class="row row-cols-auto">
-        <app-item-vertical (message)="getMessage($event)" [id]="5"></app-item-vertical>
-        <app-item-vertical (message)="getMessage($event)" [id]="6"></app-item-vertical>
-        <app-item-vertical (message)="getMessage($event)" [id]="7"></app-item-vertical>
+        <app-item (outputVertical)="getMessage($event)" *ngFor="let item of Carnes" [item]="item" [mod]="'vertical'"></app-item>
       </div>
     </div>
 
     <div class="container" *ngIf="abaAtiva === 'massas'">
       <div class="row row-cols-auto">
-        <app-item-vertical (message)="getMessage($event)" [id]="8"></app-item-vertical>
-        <app-item-vertical (message)="getMessage($event)" [id]="9"></app-item-vertical>
-        <app-item-vertical (message)="getMessage($event)" [id]="10"></app-item-vertical>
+        <app-item (outputVertical)="getMessage($event)" *ngFor="let item of Massas" [item]="item" [mod]="'vertical'"></app-item>
       </div>
     </div>
 
     <div class="container" *ngIf="abaAtiva === 'doces'">
       <div class="row row-cols-auto">
-        <app-item-vertical (message)="getMessage($event)" [id]="11"></app-item-vertical>
-        <app-item-vertical (message)="getMessage($event)" [id]="12"></app-item-vertical>
+        <app-item (outputVertical)="getMessage($event)" *ngFor="let item of Doces" [item]="item" [mod]="'vertical'"></app-item>
       </div>
     </div>
 
     <div class="container" *ngIf="abaAtiva === 'bebidas'">
       <div class="row row-cols-auto">
-        <app-item-vertical (message)="getMessage($event)" [id]="0"></app-item-vertical>
-        <app-item-vertical (message)="getMessage($event)" [id]="1"></app-item-vertical>
-        <app-item-vertical (message)="getMessage($event)" [id]="2"></app-item-vertical>
-        <app-item-vertical (message)="getMessage($event)" [id]="3"></app-item-vertical>
-        <app-item-vertical (message)="getMessage($event)" [id]="4"></app-item-vertical>
+        <app-item (outputVertical)="getMessage($event)" *ngFor="let item of Bebidas" [item]="item" [mod]="'vertical'"></app-item>
       </div>
     </div>
-</div>
 
+</div>

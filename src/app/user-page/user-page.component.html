@@ -1,0 +1,164 @@
+<nav class="navbar bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand text-light" style="font-size: 2rem;" routerLink="">Supermarket</a>
+  </div>
+</nav>
+
+<div class="container">
+    <h1 class="text-primary mb-4 mt-3" style="font-size: 5rem;">Welcome,{{firstName}}</h1>
+    @if(role == 'user'){
+      <div class="container d-flex" style="flex-direction: row;">
+        <div class="list-group">
+          <button type="button" class="list-group-item list-group-item-action" [class.active]="Myaccount" (click)="changeSessionUser()">My account</button>
+          <button type="button" class="list-group-item list-group-item-action" [class.active]="Mypurchases" (click)="changeSessionUser()">My purchases</button>
+        </div>
+
+        <div class="text-bg-light ms-5 rounded-4">
+          @if(Myaccount){
+            <ng-container>
+                <h1 class="ms-2">Info</h1>
+                <div class="container d-flex text-dark" style="flex-direction: row;">
+                    <h2>First Name: {{firstName}}</h2>
+                    <h2 class="ms-4">Last Name: {{LastName}}</h2>
+                </div>
+                <h2 class="ms-2">Email: {{email}}</h2>
+                <button type="button" class="btn btn-primary ms-2 mb-2">Update Infos</button>
+            </ng-container>
+          }@else if(Mypurchases){
+            <ng-container *ngIf="Mypurchases">
+              <h2 class="ms-2">Your purchases</h2>
+              <app-purchase class="mx-2 my-2"></app-purchase>
+            </ng-container>
+          }
+        </div>
+    </div>
+    }@else if(role == 'admin'){
+      <div class="container d-flex" style="flex-direction: row;">
+        <div class="list-group">
+          <button type="button" class="list-group-item list-group-item-action" [class.active]="foods" (click)="changeSessionAdmin()">Food menu</button>
+          <button type="button" class="list-group-item list-group-item-action" [class.active]="users" (click)="changeSessionAdmin()">User menu</button>
+        </div>
+
+        <div class="text-bg-light ms-5 rounded-4">
+          <ng-container>
+            if(foods){
+              <div class="accordion" id="accordionFood">
+                
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#foodGet" aria-expanded="true" aria-controls="foodGet">Get</button>
+                  </h2>
+                  <div id="foodGet" class="accordion-collapse collapse show" data-bs-parent="#accordionFood">
+                    <div class="accordion-body">
+                      <h2>search food by name</h2>
+                      <form [formGroup]="applyFood" (submit)="findFood()">
+                        <div class="form-floating mb-3 mt-3">
+                            <input type="text" class="form-control" id="foodSearch" placeholder="foodSearch" formControlName="name">
+                            <label for="foodSearch">food</label>
+                        </div>
+                        <button class="btn btn-primary" type="submit">search</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#foodPost" aria-expanded="true" aria-controls="foodPost">Post</button>
+                  </h2>
+                  <div id="foodPost" class="accordion-collapse collapse show" data-bs-parent="#accordionFood">
+                    <div class="accordion-body">
+                      <h2>post a new food</h2>
+                      <form [formGroup]="applyFood" (submit)="postFood()">
+
+                        <div class="form-floating mb-3 mt-3">
+                          <input type="text" class="form-control" id="foodName" placeholder="foodName" formControlName="name">
+                          <label for="foodName">foodName</label>
+                        </div>
+
+                        <div class="form-floating mb-3 mt-3">
+                          <input type="text" class="form-control" id="foodName" placeholder="foodName" formControlName="type">
+                          <label for="foodType">foodType</label>
+                        </div>
+
+                        <div class="form-floating mb-3 mt-3">
+                          <input type="text" class="form-control" id="foodPrice" placeholder="foodPrice" formControlName="price">
+                          <label for="foodPrice">foodPrice</label>
+                        </div>
+
+                        <div class="input-group mb-3 mt-3">
+                          <label class="input-group-text" for="foodImage">uploadImage</label>
+                          <input type="file" class="form-control" id="foodImage" formControlName="image">
+                        </div>
+
+                        <button class="btn btn-primary" type="submit">post</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#foodDelete" aria-expanded="true" aria-controls="foodDelete">Delete</button>
+                  </h2>
+                  <div id="foodDelete" class="accordion-collapse collapse show" data-bs-parent="#accordionFood">
+                    <div class="accordion-body">
+                      <h2>Delete food by name</h2>
+                      <form [formGroup]="applyFood" (submit)="deleteFood()">
+                        <div class="form-floating mb-3 mt-3">
+                          <input type="text" class="form-control" id="deleteFood" placeholder="deleteFood" formControlName="name">
+                          <label for="deleteFood">deleteFood</label>
+                        </div>
+                        <button class="btn btn-primary" type="submit">delete</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            }else if(users){
+              <div class="accordion" id="accordionUser">
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#foundUser" aria-expanded="true" aria-controls="foundUser">foundUser</button>
+                  </h2>
+                  <div id="foundUser" class="accordion-collapse collapse show" data-bs-parent="#accordionUser">
+                    <div class="accordion-body">
+                      <h2>found user by email</h2>
+                      <form [formGroup]="applyUser" (submit)="foundUser()">
+                        <div class="form-floating mb-3 mt-3">
+                          <input type="email" class="form-control" id="SearchUser" placeholder="foundUser" formControlName="email">
+                          <label for="SearchUser">foundUser</label>
+                        </div>
+                        <button class="btn btn-primary" type="submit">find</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#deleteUser" aria-expanded="true" aria-controls="deleteUser">deleteUser</button>
+                  </h2>
+                  <div id="deleteUser" class="accordion-collapse collapse show" data-bs-parent="#accordionUser">
+                    <div class="accordion-body">
+                      <h2>delete user by email</h2>
+                      <form [formGroup]="applyUser" (submit)="deleteUser()">
+                        <div class="form-floating mb-3 mt-3">
+                          <input type="email" class="form-control" id="delUser" placeholder="delUser" formControlName="email">
+                          <label for="SearchUser">deleteUser</label>
+                        </div>
+                        <button class="btn btn-primary" type="submit">delete</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            }
+          </ng-container>
+        </div>
+      </div>
+    }
+</div>
